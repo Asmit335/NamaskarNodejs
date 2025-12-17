@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+require("./model/index");
 const app = express();
 // const path = require("path");
 app.use(express.json());
