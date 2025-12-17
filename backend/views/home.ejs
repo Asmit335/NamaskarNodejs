@@ -3,9 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Asmit Khanal</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      nav .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        color: #ffeb3b;
+      }
+
+      .container {
+        text-align: center;
+        margin-top: 100px;
+      }
+
+      .container h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .container p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 12px 30px;
+        font-size: 1rem;
+        color: #6a11cb;
+        background-color: #fff;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background-color: #ffeb3b;
+        color: #000;
+      }
+
+      footer {
+        margin-top: auto;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+    </style>
   </head>
   <body>
-    <h1>This is the home page from EJS.Asmit Khanal</h1>
+    <%- include("./components/navbar") %>
+
+    <div class="container">
+      <h1>Welcome to My Home Page</h1>
+      <p>
+        Hello! I am Asmit Khanal. Explore the website to know more about my
+        projects, skills, and work.
+      </p>
+      <a href="/register" class="btn">Get Started</a>
+    </div>
+
+    <footer>
+      &copy; <%- new Date().getFullYear() %> Asmit Khanal. All rights reserved.
+    </footer>
   </body>
 </html>
