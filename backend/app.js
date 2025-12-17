@@ -25,14 +25,30 @@ app.get("/register", (req, res) => {
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   const data = await User.create({ username, email, password });
-  res.status(200).json({
-    message: "Register Done Successfully.",
-    data: data,
-  });
+  res.redirect("/login");
 });
 
 app.get("/login", (req, res) => {
   res.render("auth/login");
+});
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({
+    where: { email },
+  });
+  if (!user) {
+    return res.status(404).json({
+      message: "User Not Found. Please Register First",
+    });
+  }
+
+  if (user.password !== password) {
+    return res.status(404).json({
+      message: "Email or Password Not Matched.",
+    });
+  }
+  res.redirect("/");
 });
 
 app.listen(PORT, () => {
