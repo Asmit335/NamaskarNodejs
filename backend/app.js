@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 require("./model/index");
 const app = express();
 const authRoute = require("./routes/authRoutes");
+const questionRoute = require("./routes/questionRoutes");
 const { renderHomePage } = require("./controllers/authController");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,6 +19,7 @@ app.set("view engine", "ejs");
 app.get("/", renderHomePage);
 
 app.use("/", authRoute);
+app.use("/", questionRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running in PORT No. ${PORT}`);
