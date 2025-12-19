@@ -5,9 +5,12 @@ const app = express();
 const authRoute = require("./routes/authRoutes");
 const questionRoute = require("./routes/questionRoutes");
 const { renderHomePage } = require("./controllers/authController");
+const cookieParser = require("cookie-parser");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public/css"));
+app.use(cookieParser());
 
 dotenv.config();
 
