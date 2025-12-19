@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Asmit Khanal</title>
+    <title>Asmit Khanal - Questions</title>
     <style>
       * {
         margin: 0;
@@ -18,80 +18,80 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        align-items: center;
-      }
-
-      nav {
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-      }
-
-      nav .logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #fff;
-        text-decoration: none;
-      }
-
-      nav ul {
-        list-style: none;
-        display: flex;
-        gap: 20px;
-      }
-
-      nav ul li a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-      }
-
-      nav ul li a:hover {
-        color: #ffeb3b;
       }
 
       .container {
-        text-align: center;
-        margin-top: 100px;
+        width: 90%;
+        max-width: 1200px;
+        margin: 50px auto;
       }
 
-      .container h1 {
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
         font-size: 3rem;
-        margin-bottom: 20px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       }
 
-      .container p {
-        font-size: 1.2rem;
-        max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.6;
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
       }
 
-      .btn {
-        display: inline-block;
-        margin-top: 30px;
-        padding: 12px 30px;
+      .card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 20px;
+        flex-grow: 1;
+      }
+
+      .card-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #fff;
+      }
+
+      .card-content p {
         font-size: 1rem;
-        color: #6a11cb;
-        background-color: #fff;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
+        line-height: 1.5;
+        color: #ddd;
       }
 
-      .btn:hover {
+      .card-content a {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
         background-color: #ffeb3b;
         color: #000;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .card-content a:hover {
+        background-color: #fff;
+        color: #6a11cb;
       }
 
       footer {
@@ -106,18 +106,23 @@
   </head>
   <body>
     <%- include("./components/navbar") %>
-
     <div class="container">
-      <h1>Welcome to My Home Page</h1>
-      <p>
-        Hello! I am Asmit Khanal. Explore the website to know more about my
-        projects, skills, and work.
-      </p>
-      <a href="/register" class="btn">Get Started</a>
+      <h1>Explore Questions</h1>
+      <div class="cards">
+        <% data.forEach((item)=>{%>
+        <div class="card">
+          <img src="item.image" alt="<%- item.title %>" />
+          <div class="card-content">
+            <h2><%- item.title %></h2>
+            <p><%- item.description %></p>
+            <p>Author: <i> <%- item.user.username %> </i></p>
+            <a href="#">View Details</a>
+          </div>
+        </div>
+        <%})%>
+      </div>
     </div>
 
-    <footer>
-      &copy; <%- new Date().getFullYear() %> Asmit Khanal. All rights reserved.
-    </footer>
+    <footer>&copy; 2025 Asmit Khanal. All rights reserved.</footer>
   </body>
 </html>

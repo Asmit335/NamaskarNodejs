@@ -1,9 +1,17 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { User } = require("../model/index");
+const { User, Question } = require("../model/index");
 
-exports.renderHomePage = (req, res) => {
-  res.render("home");
+exports.renderHomePage = async (req, res) => {
+  const data = await Question.findAll({
+    include: [
+      {
+        model: User,
+        // attributes: ["username"],
+      },
+    ],
+  });
+  res.render("home", { data });
 };
 
 exports.renderGetRegisterPage = (req, res) => {
