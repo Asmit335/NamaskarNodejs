@@ -4,6 +4,7 @@ const {
   renderHandleRegisterPage,
   renderGetLoginPage,
   renderHandleLoginPage,
+  logout,
 } = require("../controllers/authController");
 const router = express.Router();
 
@@ -13,5 +14,5 @@ router
   .post(renderHandleRegisterPage);
 
 router.route("/login").get(renderGetLoginPage).post(renderHandleLoginPage);
-
+router.route("/logout").get(logout);
 module.exports = router;

@@ -68,3 +68,8 @@ exports.renderHandleLoginPage = async (req, res) => {
   });
   res.redirect("/");
 };
+
+exports.logout = (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/login");
+};
