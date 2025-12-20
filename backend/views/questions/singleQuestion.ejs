@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question Details</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 900px;
+        margin: 60px auto;
+      }
+
+      /* Question Card */
+      .question-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        padding: 35px;
+      }
+
+      .question-title {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+      }
+
+      .question-meta {
+        font-size: 0.95rem;
+        color: #e0e0e0;
+        margin-bottom: 15px;
+      }
+
+      .question-image {
+        margin: 25px 0;
+      }
+
+      .question-image img {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 14px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .question-description {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #f1f1f1;
+        white-space: pre-line;
+      }
+
+      /* Answer Form Card */
+      .answer-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        margin-top: 30px;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      }
+
+      .answer-card h3 {
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+        color: #fff;
+      }
+
+      .answer-card textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 12px 15px;
+        border-radius: 12px;
+        border: none;
+        font-size: 1rem;
+        resize: vertical;
+        margin-bottom: 15px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+
+      .answer-card textarea::placeholder {
+        color: #ddd;
+      }
+
+      .answer-card button {
+        padding: 12px 25px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        border-radius: 25px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .answer-card button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      /* Actions */
+      .actions {
+        margin-top: 35px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .btn-back {
+        background-color: #ffeb3b;
+        color: #000;
+      }
+
+      .btn-back:hover {
+        background-color: #fff;
+        color: #6a11cb;
+      }
+
+      footer {
+        margin-top: auto;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 600px) {
+        .question-title {
+          font-size: 1.6rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <%- include("../components/navbar") %>
+
+    <div class="container">
+      <!-- Question Card -->
+      <div class="question-card">
+        <div class="question-title"><%= question.title %></div>
+
+        <div class="question-meta">
+          Asked by <strong><%= question.user.username %></strong>
+        </div>
+        <div class="question-meta">
+          Posted on: <strong><%= question.timeAgo %></strong>
+        </div>
+
+        <% if (question.image) { %>
+        <div class="question-image">
+          <img src="/storage/<%= question.image %>" alt="Question Image" />
+        </div>
+        <% } %>
+
+        <div class="question-description"><%= question.description %></div>
+
+        <!-- Answer Form -->
+        <div class="answer-card">
+          <h3>Write Your Answer</h3>
+          <form action="/answers/<%= question.id %>" method="POST">
+            <textarea
+              name="answer"
+              placeholder="Type your answer here..."
+              required
+            ></textarea>
+            <button type="submit">Post Answer</button>
+          </form>
+        </div>
+
+        <!-- Back Button -->
+        <div class="actions">
+          <a href="/" class="btn btn-back">← Back to Questions</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>&copy; 2025 Asmit Khanal. All rights reserved.</footer>
+  </body>
+</html>

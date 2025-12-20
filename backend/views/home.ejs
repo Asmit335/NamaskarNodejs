@@ -110,11 +110,13 @@
       <h1>Explore Questions</h1>
       <div class="cards">
         <% data.forEach((item)=>{%>
-        <div class="card">
+        <div
+          class="card"
+          onclick="window.location.href='/questions/<%= item.id %>'"
+        >
           <img src="./storage/<%- item.image %>" alt="<%= item.title %>" />
           <div class="card-content">
             <h2><%- item.title %></h2>
-            <p><%- item.description %></p>
             <p>Author: <i> <%- item.user.username %> </i></p>
             <a href="#">View Details</a>
           </div>

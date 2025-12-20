@@ -15,7 +15,6 @@ exports.isAuthenticated = async (req, res, next) => {
   if (!data) {
     return res.send("Invalid Token.");
   }
-  // res.locals.isLoggedIn = true;
   req.userId = verifyToken.id;
 
   next();

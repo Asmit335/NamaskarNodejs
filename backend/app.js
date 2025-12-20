@@ -1,11 +1,14 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
+const jwt = require("jsonwebtoken");
+const { promisify } = require("util");
 require("./model/index");
 const app = express();
 const authRoute = require("./routes/authRoutes");
 const logoutRoute = require("./routes/authRoutes");
 const questionRoute = require("./routes/questionRoutes");
+const answerRoute = require("./routes/answerRoutes");
 const { renderHomePage } = require("./controllers/authController");
 const cookieParser = require("cookie-parser");
 
@@ -17,9 +20,25 @@ app.use("/storage", express.static(path.join(__dirname, "storage")));
 
 dotenv.config();
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   const token = req.cookies.token;
-  res.locals.isLoggedIn = !!token;
+  if (!token) {
+    res.locals.isLoggedIn = false;
+    return next();
+  }
+  try {
+    const verifyToken = await promisify(jwt.verify)(
+      token,
+      "haha123$$!!3354667"
+    );
+    if (verifyToken) {
+      res.locals.isLoggedIn = true;
+    } else {
+      res.locals.isLoggedIn = false;
+    }
+  } catch (error) {
+    res.locals.isLoggedIn = false;
+  }
   next();
 });
 
@@ -34,6 +53,7 @@ app.get("/", renderHomePage);
 app.use("/", authRoute);
 app.use("/", questionRoute);
 app.use("/", logoutRoute);
+app.use("/answer", answerRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running in PORT No. ${PORT}`);
