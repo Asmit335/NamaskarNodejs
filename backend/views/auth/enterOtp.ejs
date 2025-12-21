@@ -80,7 +80,7 @@
       }
 
       /* Inputs */
-      .login-container input[type="email"],
+      .login-container input[type="number"],
       .login-container input[type="password"] {
         width: 100%;
         padding: 15px 12px;
@@ -145,27 +145,14 @@
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <%- include("../components/navbar") %>
 
-    <!-- Login Card -->
     <div class="login-container">
-      <h2>Login</h2>
-      <form action="/login" method="post">
-        <input type="email" name="email" placeholder="Email" required />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <input type="submit" value="Login" />
+      <h2>Please Enter OTP</h2>
+      <form method="post">
+        <input type="number" name="number" placeholder="Enter OTP" required />
+        <input type="submit" value="Verify OTP" />
       </form>
-
-      <a href="/forget" class="register-link">Forgot Password? </a>
-      <a href="/register" class="register-link"
-        >Don't have an account? Register</a
-      >
     </div>
   </body>
 </html>

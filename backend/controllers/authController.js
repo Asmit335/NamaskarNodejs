@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User, Question } = require("../model/index");
+const sendEmail = require("../utils/sendMail");
 
 exports.renderHomePage = async (req, res) => {
   const data = await Question.findAll({
@@ -72,4 +73,29 @@ exports.renderHandleLoginPage = async (req, res) => {
 exports.logout = (req, res) => {
   res.clearCookie("token");
   res.redirect("/login");
+};
+
+exports.renderForgetPasswordPage = async (req, res) => {
+  res.render("auth/forgetPassword");
+};
+const otpStore = {};
+exports.handleForgetPasswordPage = async (req, res) => {
+  const { email } = req.body;
+  const otp = Math.floor(1000 + Math.random() * 9000);
+  const expiresAt = Date.now() + 10 * 60 * 1000; //valid for 10 minutes
+  otpStore[email] = { otp, expiresAt };
+  await sendEmail({
+    email: email,
+    subject: "Forget Password OTP!",
+    message: `Your reset Password OTP is ${otp}. It is valid for 10 minutes only.`,
+  });
+  res.redirect("/verifyotp");
+};
+
+exports.renderVerifyOtpPage = async (req, res) => {
+  res.render("auth/enterOtp");
+};
+
+exports.handleVerifyOtp = async (req, res) => {
+  sdf;
 };

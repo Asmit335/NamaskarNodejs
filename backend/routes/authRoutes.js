@@ -5,6 +5,9 @@ const {
   renderGetLoginPage,
   renderHandleLoginPage,
   logout,
+  renderForgetPasswordPage,
+  handleForgetPasswordPage,
+  renderVerifyOtpPage,
 } = require("../controllers/authController");
 const router = express.Router();
 
@@ -15,4 +18,9 @@ router
 
 router.route("/login").get(renderGetLoginPage).post(renderHandleLoginPage);
 router.route("/logout").get(logout);
+router
+  .route("/forget")
+  .get(renderForgetPasswordPage)
+  .post(handleForgetPasswordPage);
+router.route("/verifyotp").get(renderVerifyOtpPage);
 module.exports = router;
