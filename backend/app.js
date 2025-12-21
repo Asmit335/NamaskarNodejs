@@ -53,7 +53,7 @@ app.get("/", renderHomePage);
 app.use("/", authRoute);
 app.use("/", questionRoute);
 app.use("/", logoutRoute);
-app.use("/answer", answerRoute);
+app.use("/", answerRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running in PORT No. ${PORT}`);

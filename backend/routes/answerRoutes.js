@@ -4,6 +4,6 @@ const { renderSingleAnswerPage } = require("../controllers/answerController");
 
 const router = express.Router();
 
-router.route("/:id").get(isAuthenticated, renderSingleAnswerPage);
+router.route("/answer/:id").post(isAuthenticated, renderSingleAnswerPage);
 
 module.exports = router;

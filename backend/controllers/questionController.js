@@ -1,4 +1,4 @@
-const { Question, User } = require("../model/index");
+const { Question, User, Answer } = require("../model/index");
 
 exports.renderAskQuestionPage = async (req, res) => {
   res.render("questions/questions");
@@ -67,12 +67,25 @@ function timeAgo(date) {
 }
 
 exports.renderSingleAskPage = async (req, res) => {
+  const { id } = req.params;
   const question = await Question.findOne({
-    where: { id: req.params.id },
+    where: { id },
     include: [{ model: User }],
   });
 
   question.timeAgo = timeAgo(question.createdAt);
 
-  res.render("questions/singleQuestion", { question });
+  const answerData = await Answer.findAll({
+    where: { questionId: id },
+    include: [
+      {
+        model: User,
+      },
+    ],
+  });
+
+  answerData.forEach((answer) => {
+    answer.timeAgo = timeAgo(answer.createdAt);
+  });
+  res.render("questions/singleQuestion", { question, answerData });
 };
