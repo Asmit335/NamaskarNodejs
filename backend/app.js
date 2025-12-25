@@ -10,8 +10,20 @@ const logoutRoute = require("./routes/authRoutes");
 const questionRoute = require("./routes/questionRoutes");
 const answerRoute = require("./routes/answerRoutes");
 const { renderHomePage } = require("./controllers/authController");
-const cookieParser = require("cookie-parser");
 
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const flash = require("connect-flash");
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 10 * 60 * 1000 }, // optional, session expires in 10 min
+  })
+);
+
+app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.static("public/css"));
@@ -39,6 +51,12 @@ app.use(async (req, res, next) => {
   } catch (error) {
     res.locals.isLoggedIn = false;
   }
+  next();
+});
+
+app.use((req, res, next) => {
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
   next();
 });
 

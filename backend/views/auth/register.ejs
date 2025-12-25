@@ -143,6 +143,9 @@
 
     <div class="register-container">
       <h2>Create Account</h2>
+      <% if (error.length > 0) { %>
+      <p style="color: red"><%= error[0] %></p>
+      <% } %>
       <form action="/register" method="post">
         <input type="text" name="username" placeholder="Full Name" required />
         <input type="email" name="email" placeholder="Email" required />

@@ -105,7 +105,9 @@
     </style>
   </head>
   <body>
-    <%- include("./components/navbar") %>
+    <%- include("./components/navbar") %> <% if (success.length > 0) { %>
+    <p style="color: green; text-align: right"><%= success[0] %></p>
+    <% } %>
     <div class="container">
       <h1>Explore Questions</h1>
       <div class="cards">
