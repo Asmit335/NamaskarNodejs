@@ -10,7 +10,7 @@ const logoutRoute = require("./routes/authRoutes");
 const questionRoute = require("./routes/questionRoutes");
 const answerRoute = require("./routes/answerRoutes");
 const { renderHomePage } = require("./controllers/authController");
-
+const socketIo = require("socket.io");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -73,6 +73,17 @@ app.use("/", questionRoute);
 app.use("/", logoutRoute);
 app.use("/", answerRoute);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running in PORT No. ${PORT}`);
+});
+
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(socket.id);
+  console.log("SomeOne is Connected");
 });

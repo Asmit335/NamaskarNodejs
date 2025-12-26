@@ -155,7 +155,9 @@
                 style="display: inline"
               >
                 <input type="hidden" name="type" value="like" />
-                <button type="submit">👍 10</button>
+                <button type="button" onclick="likePost(<%- answer.id %>)">
+                  👍<%= answer.likes %>
+                </button>
               </form>
 
               <form
@@ -196,5 +198,13 @@
     </div>
 
     <footer>© 2025 Asmit Khanal. All rights reserved.</footer>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      function likePost(answerId) {
+        socket.emit("like", answerId);
+        console.log(answerId);
+      }
+    </script>
   </body>
 </html>
