@@ -14,6 +14,7 @@ const socketIo = require("socket.io");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
+const { Answer } = require("./model/index");
 app.use(
   session({
     secret: "your-secret-key",
@@ -84,6 +85,12 @@ const io = socketIo(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(socket.id);
-  console.log("SomeOne is Connected");
+  socket.on("likes", async (data) => {
+    const answerLike = await Answer.findByPk(data);
+    if (!answerLike) return;
+    answerLike.likes += 1;
+    await answerLike.save();
+
+    io.emit("updateLike", { id: answerLike.id, likes: answerLike.likes });
+  });
 });

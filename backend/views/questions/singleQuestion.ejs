@@ -156,7 +156,10 @@
               >
                 <input type="hidden" name="type" value="like" />
                 <button type="button" onclick="likePost(<%- answer.id %>)">
-                  👍<%= answer.likes %>
+                  👍
+                  <span id="like-count-<%= answer.id %>"
+                    ><%= answer.likes %></span
+                  >
                 </button>
               </form>
 
@@ -202,8 +205,15 @@
     <script>
       const socket = io();
       function likePost(answerId) {
-        socket.emit("like", answerId);
+        socket.emit("likes", answerId);
         console.log(answerId);
+
+        socket.on("updateLike", (data) => {
+          const span = document.getElementById(`like-count-${data.id}`);
+          if (span) {
+            span.textContent = data.likes;
+          }
+        });
       }
     </script>
   </body>
