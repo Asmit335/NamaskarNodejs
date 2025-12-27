@@ -85,6 +85,7 @@ const io = socketIo(server, {
 });
 
 io.on("connection", (socket) => {
+  //like logic
   socket.on("likes", async (data) => {
     const answerLike = await Answer.findByPk(data);
     if (!answerLike) return;
@@ -92,5 +93,17 @@ io.on("connection", (socket) => {
     await answerLike.save();
 
     io.emit("updateLike", { id: answerLike.id, likes: answerLike.likes });
+  });
+
+  //dislike logic
+  socket.on("dislikes", async (data) => {
+    const answerDisLike = await Answer.findByPk(data);
+    if (!answerDisLike) return;
+    answerDisLike.dislikes += 1;
+    await answerDisLike.save();
+    io.emit("updateDislike", {
+      id: answerDisLike.id,
+      dislikes: answerDisLike.dislikes,
+    });
   });
 });

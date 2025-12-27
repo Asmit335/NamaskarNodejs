@@ -169,7 +169,12 @@
                 style="display: inline"
               >
                 <input type="hidden" name="type" value="dislike" />
-                <button type="submit">👎 2</button>
+                <button type="button" onclick="dislikePost(<%= answer.id %>)">
+                  👎
+                  <span id="dislikeCount-<%= answer.id %>"
+                    ><%= answer.dislikes %></span
+                  >
+                </button>
               </form>
 
               <hr style="opacity: 0.3" />
@@ -206,15 +211,25 @@
       const socket = io();
       function likePost(answerId) {
         socket.emit("likes", answerId);
-        console.log(answerId);
-
-        socket.on("updateLike", (data) => {
-          const span = document.getElementById(`like-count-${data.id}`);
-          if (span) {
-            span.textContent = data.likes;
-          }
-        });
       }
+
+      function dislikePost(answerId) {
+        socket.emit("dislikes", answerId);
+      }
+
+      socket.on("updateLike", (data) => {
+        const span = document.getElementById(`like-count-${data.id}`);
+        if (span) {
+          span.textContent = data.likes;
+        }
+      });
+
+      socket.on("updateDislike", (data) => {
+        const span = document.getElementById(`dislikeCount-${data.id}`);
+        if (span) {
+          span.textContent = data.dislikes;
+        }
+      });
     </script>
   </body>
 </html>

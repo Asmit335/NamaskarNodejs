@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    dislikes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   });
   return Answer;
 };
