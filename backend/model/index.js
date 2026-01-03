@@ -29,7 +29,7 @@ db.sequelize = sequelize;
 db.User = require("./userModel")(sequelize, DataTypes);
 db.Question = require("./questionModel")(sequelize, DataTypes);
 db.Answer = require("./answerModel")(sequelize, DataTypes);
-db.AnswerLike = require("./answerLikeModel")(sequelize)(DataTypes);
+db.AnswerLike = require("./answerLikeModel")(sequelize, DataTypes);
 
 db.User.hasMany(db.Question);
 db.Question.belongsTo(db.User);

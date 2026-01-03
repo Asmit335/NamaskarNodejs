@@ -14,7 +14,7 @@ const socketIo = require("socket.io");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
-const { Answer } = require("./model/index");
+const { Answer, AnswerLike } = require("./model/index");
 app.use(
   session({
     secret: "your-secret-key",
@@ -106,4 +106,25 @@ io.on("connection", (socket) => {
       dislikes: answerDisLike.dislikes,
     });
   });
+
+  //answerlikebyUserTracking
+  // socket.userId = socket.request.session.user.id;
+
+  // socket.on("likeAnswer", async (answerId) => {
+  //   const userId = socket.userId;
+  //   const alreadyLiked = await AnswerLike.findOne({
+  //     where: { userId, answerId },
+  //   });
+  //   if (alreadyLiked) return;
+
+  //   await AnswerLike.create({ userId, answerId });
+  //   const answer = await Answer.findByPk(answerId);
+  //   answer.likes += 1;
+  //   await answer.save();
+
+  //   io.emit("updateLike", {
+  //     id: answer.id,
+  //     likes: answer.likes,
+  //   });
+  // });
 });
